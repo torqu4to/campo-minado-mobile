@@ -3,9 +3,10 @@ import { Text, View, StyleSheet, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import params from './params'
 import Field from './components/Field'
+import Header from './components/Header'
 import {createMinedBoard, cloneBoard, openField, hadExplosion, wonGame, showMines, invertFlag, flagsUsed} from './functions'
 import MineField from './components/MineField'
-
+import LevelSelection from './components/screens/LevelSelection'
 export default class App extends Component{
 
   constructor(props) {
@@ -46,7 +47,7 @@ export default class App extends Component{
       Alert.alert(`Parabéns`, `Você venceu`)
     }
 
-    this.setState({board, lost, won})
+    this.setState({board, lost, won}) // atualiza as variáveis
   }
 
   onSelectField = (row, column) => {
@@ -68,7 +69,15 @@ export default class App extends Component{
 
   render() {
     return (
-      <View style={styles.container}>        
+      <View style={styles.container}>
+      <LevelSelection 
+        isVisible={this.state.showLevelSelection}
+        onLevelSelected={this.onLevelSelected}
+        onCancel={ () => this.state({showLevelSelection: false})}/>
+       <Header 
+       flagsLeft={this.minesAmount() - flagsUsed(this.state.board)}
+       onNewGame={ () => this.setState(this.createState())}
+       onFlagPress={ () => this.setState( {showLevelSelection: true})}/>         
        <View style={styles.board}>
         <MineField 
           board={this.state.board}
@@ -85,7 +94,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end'
   },
-
    board: {
     alignItems: 'center',
     backgroundColor: '#AAA'

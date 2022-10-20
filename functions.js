@@ -14,13 +14,13 @@ const createBoard = (rows, columns) => {
         })
     })
 }
-// espalha as minas no tabuleiro
-const spreadMines = (board, minesAmount) => { // o tabuleiro e a quantidade de minas são passadas como parâmetro
-    const rows = board.length 
+// esparrama as minas
+const spreadMines = (board, minesAmount) => {
+    const rows = board.length
     const columns = board[0].length
     let minesPlanted = 0
     
-    while (minesPlanted < minesAmount) { // aqui 
+    while (minesPlanted < minesAmount) {
         const rowSel = parseInt(Math.random() * rows, 10)
         const columnSel = parseInt(Math.random() * columns, 10)
 
@@ -82,6 +82,7 @@ const safeNeighborhood = (board, row, column) => {
 // vamos abrir o campo
 const openField = (board, row, column) => {
   const field = board[row][column]
+  console.log(field)
   if (!field.opened){ // campo ainda não aberto
     field.opened = true
     if (field.mined){ // campo minado

@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Field from './Field'
 
@@ -13,7 +14,6 @@ export default props => {
     })
     return <View style={styles.container}>{rows}</View>
 }
-
 
 const styles = StyleSheet.create({
     container: {
